@@ -29,11 +29,15 @@ fix		    1 all nve
 
 # save positions info via dump
 dump dump0 all custom 1 ref.lammpstrj id type x y z
+dump_modify dump0 sort id
 
 compute test1 all test/scalar/atom 
 dump dump1 all custom 1 test_scalar.lammpstrj id type c_test1
+dump_modify dump1 sort id
+
 compute test2 all test/coord/atom 
 dump dump2 all custom 1 test_coord.lammpstrj id type c_test2[*]
+dump_modify dump1 sort id
 
 # run
 

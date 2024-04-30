@@ -1,0 +1,162 @@
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Loaded 1 plugins from /public/home/jxzhu/tutorial/lammps-developer/02.include_pkgs/lmp_plugins/build
+Loaded 1 plugins from /public/home/jxzhu/tutorial/lammps-developer/01.first_trial/lmp_plugins/build
+Loaded 0 plugins from 
+plugin list
+Currently loaded plugins
+   1: kspace style plugin ewald/test
+   2: compute style plugin test/scalar/atom
+   3: compute style plugin test/coord/atom
+
+
+units		metal
+dimension	3
+boundary	p p p
+
+atom_style  full
+neighbor	2.0 bin
+
+# create geometry
+
+lattice		sc 10
+Lattice spacing in x,y,z = 10 10 10
+region		box block 0 10 0 10 0 10
+create_box	2 box
+Created orthogonal box = (0 0 0) to (100 100 100)
+  1 by 1 by 1 MPI processor grid
+create_atoms 1 random 100 341341 box
+Created 100 atoms
+  using lattice units in orthogonal box = (0 0 0) to (100 100 100)
+  create_atoms CPU = 0.001 seconds
+create_atoms 2 random 100 127569 box
+Created 100 atoms
+  using lattice units in orthogonal box = (0 0 0) to (100 100 100)
+  create_atoms CPU = 0.000 seconds
+
+mass         1 1.0
+mass         2 1.0
+
+# LJ potentials and KSPACE
+
+pair_style	lj/cut/coul/long 8.5
+kspace_style ewald 1e-6
+
+pair_coeff	* * 0.01 3.4 8.5
+
+set type 1 charge -1
+Setting atom values ...
+  100 settings made for charge
+set type 2 charge 1
+Setting atom values ...
+  100 settings made for charge
+
+# # initial velocities
+
+velocity	all create 300 482748
+fix		    1 all nve
+
+# save positions info via dump
+dump dump0 all custom 1 ref.lammpstrj id type x y z fx fy fz
+dump_modify dump0 sort id format line "%d %d %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g"
+
+
+
+# run
+
+thermo  1
+run     10
+Ewald initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:342)
+  G vector (1/distance) = 0.35645366
+  estimated absolute RMS force accuracy = 1.7649113e-05
+  estimated relative force accuracy = 1.225663e-06
+  KSpace vectors: actual max1d max3d = 89789 35 178955
+                  kxmax kymax kzmax  = 35 35 35
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 10.5
+  ghost atom cutoff = 10.5
+  binsize = 5.25, bins = 20 20 20
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 82.13 | 82.13 | 82.13 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   300            2.2047483      0              9.921579       256.57395    
+         1   2089.1495     -33.701185      0              20.037524      55.906877    
+         2   2157.2605     -34.800938      0              20.689776      47.100975    
+         3   2189.3278     -35.607854      0              20.707719      44.981215    
+         4   2232.3859     -36.714624      0              20.708522      44.469368    
+         5   2286.5843     -38.109181      0              20.708099      44.719453    
+         6   2351.2247     -39.77235       0              20.70766       45.420243    
+         7   2425.7378     -41.689256      0              20.707437      46.445515    
+         8   2509.719      -43.849821      0              20.707101      47.743053    
+         9   2602.9467     -46.247642      0              20.707356      49.299497    
+        10   2705.3573     -48.881781      0              20.707499      51.122682    
+Loop time of 1.26854 on 1 procs for 10 steps with 200 atoms
+
+Performance: 0.681 ns/day, 35.237 hours/ns, 7.883 timesteps/s
+98.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.00024039 | 0.00024039 | 0.00024039 |   0.0 |  0.02
+Bond    | 7.76e-07   | 7.76e-07   | 7.76e-07   |   0.0 |  0.00
+Kspace  | 1.2602     | 1.2602     | 1.2602     |   0.0 | 99.34
+Neigh   | 0.00014746 | 0.00014746 | 0.00014746 |   0.0 |  0.01
+Comm    | 0.0001175  | 0.0001175  | 0.0001175  |   0.0 |  0.01
+Output  | 0.0076634  | 0.0076634  | 0.0076634  |   0.0 |  0.60
+Modify  | 7.9466e-05 | 7.9466e-05 | 7.9466e-05 |   0.0 |  0.01
+Other   |            | 0.00011    |            |       |  0.01
+
+Nlocal:            200 ave         200 max         200 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:            188 ave         188 max         188 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:             99 ave          99 max          99 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 99
+Ave neighs/atom = 0.495
+Ave special neighs/atom = 0
+Neighbor list builds = 1
+Dangerous builds = 1
+
+kspace_style ewald/test 1e-6
+
+dump dump1 all custom 1 test.lammpstrj id type x y z fx fy fz
+dump_modify dump1 sort id format line "%d %d %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g"
+
+rerun ref.lammpstrj dump x y z fx fy fz
+Ewald initialization ...
+  using 12-bit tables for long-range coulomb (src/kspace.cpp:342)
+  G vector (1/distance) = 0.35645366
+  estimated absolute RMS force accuracy = 1.7649113e-05
+  estimated relative force accuracy = 1.225663e-06
+  KSpace vectors: actual max1d max3d = 89789 35 178955
+                  kxmax kymax kzmax  = 35 35 35
+Generated 0 of 1 mixed pair_coeff terms from geometric mixing rule
+Per MPI rank memory allocation (min/avg/max) = 83.4 | 83.4 | 83.4 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   2705.3573      2.2047483      0              71.794028      322.66101    
+         1   2705.3573     -33.701185      0              35.888095      72.837152    
+         2   2705.3573     -34.800938      0              34.788342      62.159902    
+         3   2705.3573     -35.607854      0              33.981426      59.159096    
+         4   2705.3573     -36.714624      0              32.874656      57.464231    
+         5   2705.3573     -38.109181      0              31.480099      56.225217    
+         6   2705.3573     -39.77235       0              29.81693       55.150016    
+         7   2705.3573     -41.689256      0              27.900024      54.128044    
+         8   2705.3573     -43.849821      0              25.739459      53.118203    
+         9   2705.3573     -46.247642      0              23.341638      52.113221    
+        10   2705.3573     -48.881781      0              20.707499      51.122682    
+Loop time of 1.52381 on 1 procs for 11 steps with 200 atoms
+
+Total wall time: 0:00:02
