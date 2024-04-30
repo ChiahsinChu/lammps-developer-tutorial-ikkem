@@ -12,8 +12,6 @@
 
     # setup the path to lammps source code
     export LAMMPS_SOURCE_DIR=/public/software/lammps/lammps-23Jun2022-plugin/src
-    # setup the path to lammps plugins
-    export LAMMPS_PLUGIN_PATH=$PWD/plugins/build:$LAMMPS_PLUGIN_PATH
     ```
 
 2. Compile the plugins
@@ -24,6 +22,8 @@
     rm -r *
     cmake -DLAMMPS_SOURCE_DIR=$LAMMPS_SOURCE_DIR ..
     make
+    # setup the path to lammps plugins
+    export LAMMPS_PLUGIN_PATH=$PWD:$LAMMPS_PLUGIN_PATH
     ```
 
 3. Run the example
