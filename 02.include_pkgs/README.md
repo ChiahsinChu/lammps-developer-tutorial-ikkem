@@ -11,8 +11,8 @@ module load lammps/2022.6.23-plugin
 # setup the path to lammps source code
 export LAMMPS_SOURCE_DIR=/public/software/lammps/lammps-23Jun2022-plugin/src
 
-mkdir -p lmp_plugins/build
-cd lmp_plugins/build
+mkdir -p plugins/build
+cd plugins/build
 cmake -DLAMMPS_SOURCE_DIR=$LAMMPS_SOURCE_DIR ..
 make
 
