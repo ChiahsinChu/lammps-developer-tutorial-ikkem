@@ -1,0 +1,198 @@
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Loaded 1 plugins from /public/home/jxzhu/tutorial/lammps-developer/01.first_trial/lmp_plugins/build
+Loaded 0 plugins from 
+plugin list
+Currently loaded plugins
+   1: compute style plugin test/scalar/atom
+   2: compute style plugin test/coord/atom
+
+
+units		metal
+dimension	3
+boundary	p p p
+
+atom_style	atomic
+neighbor	2.0 bin
+
+# create geometry
+
+lattice		sc 10
+Lattice spacing in x,y,z = 10 10 10
+region		box block 0 10 0 10 0 10
+create_box	1 box
+Created orthogonal box = (0 0 0) to (100 100 100)
+  1 by 1 by 1 MPI processor grid
+create_atoms	1 box
+Created 1000 atoms
+  using lattice units in orthogonal box = (0 0 0) to (100 100 100)
+  create_atoms CPU = 0.000 seconds
+
+mass		1 39.95
+
+# LJ potentials
+
+pair_style	lj/cut 8.5
+pair_coeff	* * 0.01 3.4 8.5
+
+# initial velocities
+
+velocity	all create 300 482748
+fix		    1 all nve
+
+# save positions info via dump
+dump dump0 all custom 1 ref.lammpstrj id type x y z
+
+compute test1 all test/scalar/atom
+dump dump1 all custom 1 test_scalar.lammpstrj id type c_test1
+compute test2 all test/coord/atom
+dump dump2 all custom 1 test_coord.lammpstrj id type c_test2[*]
+
+# run
+
+thermo  1
+run		100
+Generated 0 of 0 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 10.5
+  ghost atom cutoff = 10.5
+  binsize = 5.25, bins = 20 20 20
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 7.263 | 7.263 | 7.263 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   300            0              0              38.739265      41.378094    
+         1   300            0              0              38.739265      41.378094    
+         2   300            0              0              38.739265      41.378094    
+         3   300            0              0              38.739265      41.378094    
+         4   300            0              0              38.739265      41.378094    
+         5   300            0              0              38.739265      41.378094    
+         6   300            0              0              38.739265      41.378094    
+         7   300            0              0              38.739265      41.378094    
+         8   300            0              0              38.739265      41.378094    
+         9   300            0              0              38.739265      41.378094    
+        10   300            0              0              38.739265      41.378094    
+        11   300            0              0              38.739265      41.378094    
+        12   300            0              0              38.739265      41.378094    
+        13   300            0              0              38.739265      41.378094    
+        14   300            0              0              38.739265      41.378094    
+        15   300            0              0              38.739265      41.378094    
+        16   300            0              0              38.739265      41.378094    
+        17   300            0              0              38.739265      41.378094    
+        18   300            0              0              38.739265      41.378094    
+        19   300            0              0              38.739265      41.378094    
+        20   300            0              0              38.739265      41.378094    
+        21   300            0              0              38.739265      41.378094    
+        22   300            0              0              38.739265      41.378094    
+        23   300            0              0              38.739265      41.378094    
+        24   300            0              0              38.739265      41.378094    
+        25   300            0              0              38.739265      41.378094    
+        26   300            0              0              38.739265      41.378094    
+        27   300            0              0              38.739265      41.378094    
+        28   300            0              0              38.739265      41.378094    
+        29   300            0              0              38.739265      41.378094    
+        30   300            0              0              38.739265      41.378094    
+        31   300            0              0              38.739265      41.378094    
+        32   300            0              0              38.739265      41.378094    
+        33   300            0              0              38.739265      41.378094    
+        34   300            0              0              38.739265      41.378094    
+        35   300            0              0              38.739265      41.378094    
+        36   300            0              0              38.739265      41.378094    
+        37   300            0              0              38.739265      41.378094    
+        38   300            0              0              38.739265      41.378094    
+        39   300            0              0              38.739265      41.378094    
+        40   300            0              0              38.739265      41.378094    
+        41   300            0              0              38.739265      41.378094    
+        42   300            0              0              38.739265      41.378094    
+        43   300            0              0              38.739265      41.378094    
+        44   300            0              0              38.739265      41.378094    
+        45   300            0              0              38.739265      41.378094    
+        46   300            0              0              38.739265      41.378094    
+        47   300            0              0              38.739265      41.378094    
+        48   300            0              0              38.739265      41.378094    
+        49   300            0              0              38.739265      41.378094    
+        50   300            0              0              38.739265      41.378094    
+        51   300            0              0              38.739265      41.378094    
+        52   300            0              0              38.739265      41.378094    
+        53   300            0              0              38.739265      41.378094    
+        54   300            0              0              38.739265      41.378094    
+        55   300            0              0              38.739265      41.378094    
+        56   300            0              0              38.739265      41.378094    
+        57   300            0              0              38.739265      41.378094    
+        58   300            0              0              38.739265      41.378094    
+        59   300            0              0              38.739265      41.378094    
+        60   300            0              0              38.739265      41.378094    
+        61   300            0              0              38.739265      41.378094    
+        62   300            0              0              38.739265      41.378094    
+        63   300            0              0              38.739265      41.378094    
+        64   300            0              0              38.739265      41.378094    
+        65   300            0              0              38.739265      41.378094    
+        66   300            0              0              38.739265      41.378094    
+        67   300            0              0              38.739265      41.378094    
+        68   300            0              0              38.739265      41.378094    
+        69   300            0              0              38.739265      41.378094    
+        70   300            0              0              38.739265      41.378094    
+        71   300            0              0              38.739265      41.378094    
+        72   300            0              0              38.739265      41.378094    
+        73   300            0              0              38.739265      41.378094    
+        74   300            0              0              38.739265      41.378094    
+        75   300            0              0              38.739265      41.378094    
+        76   300            0              0              38.739265      41.378094    
+        77   300            0              0              38.739265      41.378094    
+        78   300            0              0              38.739265      41.378094    
+        79   300            0              0              38.739265      41.378094    
+        80   300            0              0              38.739265      41.378094    
+        81   300            0              0              38.739265      41.378094    
+        82   300            0              0              38.739265      41.378094    
+        83   300            0              0              38.739265      41.378094    
+        84   300            0              0              38.739265      41.378094    
+        85   300            0              0              38.739265      41.378094    
+        86   300            0              0              38.739265      41.378094    
+        87   300            0              0              38.739265      41.378094    
+        88   300            0              0              38.739265      41.378094    
+        89   300            0              0              38.739265      41.378094    
+        90   300            0              0              38.739265      41.378094    
+        91   300            0              0              38.739265      41.378094    
+        92   300            0              0              38.739265      41.378094    
+        93   300            0              0              38.739265      41.378094    
+        94   300            0              0              38.739265      41.378094    
+        95   300            0              0              38.739265      41.378094    
+        96   300            0              0              38.739265      41.378094    
+        97   300            0              0              38.739265      41.378094    
+        98   300            0              0              38.739265      41.378094    
+        99   300            0              0              38.739265      41.378094    
+       100   300            0              0              38.739265      41.378094    
+Loop time of 0.288201 on 1 procs for 100 steps with 1000 atoms
+
+Performance: 29.979 ns/day, 0.801 hours/ns, 346.980 timesteps/s
+93.1% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0019341  | 0.0019341  | 0.0019341  |   0.0 |  0.67
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00052533 | 0.00052533 | 0.00052533 |   0.0 |  0.18
+Output  | 0.28439    | 0.28439    | 0.28439    |   0.0 | 98.68
+Modify  | 0.00092218 | 0.00092218 | 0.00092218 |   0.0 |  0.32
+Other   |            | 0.000432   |            |       |  0.15
+
+Nlocal:           1000 ave        1000 max        1000 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:           1197 ave        1197 max        1197 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:           3000 ave        3000 max        3000 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 3000
+Ave neighs/atom = 3
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00

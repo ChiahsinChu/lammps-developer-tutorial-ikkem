@@ -13,21 +13,21 @@
 
 #ifdef COMPUTE_CLASS
 // clang-format off
-ComputeStyle(test/vector/atom,ComputeTestVectorAtom);
+ComputeStyle(test/coord/atom,ComputeTestCoordAtom);
 // clang-format on
 #else
 
-#ifndef LMP_COMPUTE_TEST_VECTOR_ATOM_H
-#define LMP_COMPUTE_TEST_VECTOR_ATOM_H
+#ifndef LMP_COMPUTE_TEST_COORD_ATOM_H
+#define LMP_COMPUTE_TEST_COORD_ATOM_H
 
 #include "compute.h"
 
 namespace LAMMPS_NS {
 
-class ComputeTestVectorAtom : public Compute {
+class ComputeTestCoordAtom : public Compute {
  public:
-  ComputeTestVectorAtom(class LAMMPS *, int, char **);
-  ~ComputeTestVectorAtom() override;
+  ComputeTestCoordAtom(class LAMMPS *, int, char **);
+  ~ComputeTestCoordAtom() override;
   void init() override;
   void compute_peratom() override;
   double memory_usage() override;

@@ -1,0 +1,16 @@
+LAMMPS (23 Jun 2022)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Loaded 4 plugins from /public/home/jxzhu/tutorial/lammps-developer/00.setup/plugins/build
+Loaded 0 plugins from 
+Currently loaded plugins
+   1: pair style plugin zero2
+   2: bond style plugin zero2
+   3: angle style plugin zero2
+   4: dihedral style plugin zero2
+   5: improper style plugin zero2
+   6: fix style plugin nve2
+   7: command style plugin hello
+   8: pair style plugin morse2
+   9: pair style plugin morse2/omp
+Total wall time: 0:00:00

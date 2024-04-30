@@ -6,7 +6,7 @@
 #include "version.h"
 
 #include "compute_test_scalar_atom.h"
-#include "compute_test_vector_atom.h"
+#include "compute_test_coord_atom.h"
 
 using namespace LAMMPS_NS;
 
@@ -15,8 +15,8 @@ static Compute *computetestscalaratom(LAMMPS *lmp, int narg, char **arg) {
   return new ComputeTestScalarAtom(lmp, narg, arg);
 }
 
-static Compute *computetestvectoratom(LAMMPS *lmp, int narg, char **arg) {
-  return new ComputeTestVectorAtom(lmp, narg, arg);
+static Compute *computetestcoordatom(LAMMPS *lmp, int narg, char **arg) {
+  return new ComputeTestCoordAtom(lmp, narg, arg);
 }
 
 extern "C" void lammpsplugin_init(void *lmp, void *handle, void *regfunc) 
@@ -35,8 +35,8 @@ extern "C" void lammpsplugin_init(void *lmp, void *handle, void *regfunc)
   (*register_plugin)(&plugin, lmp);
 
   plugin.style = "compute";
-  plugin.name = "test/vector/atom";
-  plugin.info = "compute test/vector/atom";
-  plugin.creator.v2 = (lammpsplugin_factory2 *) &computetestvectoratom;
+  plugin.name = "test/coord/atom";
+  plugin.info = "compute test/coord/atom";
+  plugin.creator.v2 = (lammpsplugin_factory2 *) &computetestcoordatom;
   (*register_plugin)(&plugin, lmp);
 }
