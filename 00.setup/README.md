@@ -30,5 +30,5 @@
 
     ```bash
     cd ../../test
-    lmp_intel_cpu_intelmpi -i input.inp
+    lmp_intel_cpu_intelmpi -i input.lmp
     ```
