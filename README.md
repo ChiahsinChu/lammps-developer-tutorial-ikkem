@@ -1,9 +1,10 @@
-# Step-by-step guide to run LAMMPS with plugins
+# Step-by-step guide to write your own LAMMPS plugins
 
 Here is a simple tutorial for writing LAMMPS plugins by yourself and run them in IKKEM HPC. You can find:
 
 1. How to compile given plugin code and call the plugins in LAMMPS in `00.setup`
-2. How to write your first plugin in `01.compute_test`
+2. How to write your first plugin in `01.first_trial`
+3. How to include some packages in your plugin in `02.include_pkgs`
 
 Please make sure that the following modules are loaded when both the compiling the plugins and running LAMMPS:
 
