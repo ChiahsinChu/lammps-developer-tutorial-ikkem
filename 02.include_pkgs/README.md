@@ -21,7 +21,7 @@ export LAMMPS_PLUGIN_PATH=$PWD:$LAMMPS_PLUGIN_PATH
 
 ## Details of plugins
 
-In the example in `01.first_trial`, our plugins only depend on the common library in LAMMPS but not any package. In fact, you need to specify the dependency to the packages in `CMakeLists.txt` if your plugin use any of them. For example, a `kspace ewald/test` plugin is implemented in this example. This plugin makes nothing changes based on the `kspace ewald` but print `hello world!` on the screen in every timestep. You can test the plugin by 1) checking the output of `dump` and 2) checking the screen output. In order to make our plugin find the necessary libraries, we make the following modification in `CMakeLists.txt`:
+In the example in `01.first_trial`, our plugins only depend on the common library in LAMMPS but not any package. In fact, you need to specify the dependency to the packages in `CMakeLists.txt` if your plugin use any of them. For example, a `kspace ewald/test` plugin is implemented in this example. This plugin makes nothing changes based on the `kspace ewald` but print `hello world!` on the screen in every timestep. The main part of the implementation can be found in the `void EwaldTest::compute(int eflag, int vflag)` method in `plugins/ewald_test.cpp`. You can test the plugin by 1) checking the output of `dump` and 2) checking the screen output in `test`. In order to make our plugin find the necessary libraries, we make the following modification in `CMakeLists.txt`:
 
 ```bash
 set(libname "mylmpplugin")
